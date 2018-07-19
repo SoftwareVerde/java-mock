@@ -1,4 +1,4 @@
-package com.softwareverde.test.utils;
+package com.softwareverde.test.util;
 
 import org.junit.Assert;
 import org.junit.Test;

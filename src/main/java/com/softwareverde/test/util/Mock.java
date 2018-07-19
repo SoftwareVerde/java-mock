@@ -1,4 +1,4 @@
-package com.softwareverde.test.utils;
+package com.softwareverde.test.util;
 
 import java.util.ArrayList;
 import java.util.HashMap;

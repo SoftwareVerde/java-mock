@@ -1,4 +1,4 @@
-package com.softwareverde.test.utils;
+package com.softwareverde.test.util;
 
 public class TestClass {
     private final String _className = this.getClass().getSimpleName();

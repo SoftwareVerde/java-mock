@@ -1,4 +1,4 @@
-package com.softwareverde.test.utils;
+package com.softwareverde.test.util;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -29,11 +29,19 @@ public class TestUtil {
         throw lastException;
     }
 
-    @SuppressWarnings("unchecked")
     public static <T> T getValue(final Object object, final String memberName) {
+        return getValue(object.getClass(), object, memberName);
+    }
+
+    public static <T> T getStaticValue(final Class objectClass, final String memberName) {
+        return getValue(objectClass, null, memberName);
+    }
+
+    @SuppressWarnings("unchecked")
+    public static <T> T getValue(final Class objectClass, final Object object, final String memberName) {
         RuntimeException lastException = null;
 
-        Class<?> clazz = object.getClass();
+        Class<?> clazz = objectClass;
         do {
             try {
                 final Field field = clazz.getDeclaredField(memberName);
@@ -41,10 +49,10 @@ public class TestUtil {
                 return (T) field.get(object);
             }
             catch (final NoSuchFieldException e) {
-                lastException = new RuntimeException("Invalid member name found in mock: " + object.getClass().getSimpleName() + "." + memberName);
+                lastException = new RuntimeException("Invalid member name found in mock: " + objectClass.getSimpleName() + "." + memberName);
             }
             catch (final IllegalAccessException e) {
-                lastException = new RuntimeException("Unable to access member in mock: " + object.getClass().getSimpleName() + "." + memberName);
+                lastException = new RuntimeException("Unable to access member in mock: " + objectClass.getSimpleName() + "." + memberName);
             }
         } while ((clazz = clazz.getSuperclass()) != null);
 
